@@ -1,0 +1,33 @@
+# Build artifacts
+dist/
+out/
+*.vsix
+
+# Dependencies
+node_modules/
+package-lock.json
+
+# VS Code
+.vscode/
+.vsce/
+.vscodeserver/
+
+# Logs and databases
+*.log
+*.sqlite
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Linux
+*.swp
+
+# Environment variables
+.env
+
+# Optional: Ignore VS Code user settings
+# .vscode/settings.json
+# .vscode/launch.json
