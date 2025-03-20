@@ -2,9 +2,17 @@
   "name": "human-like-paste",
   "displayName": "Human-Like Paste",
   "description": "Simulates human-like typing of clipboard text with controls for server activation, paste simulation, resume, pause, stop, notifications toggle, speed adjustments, and special one-time copy/paste commands.",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "publisher": "WaseemRazaKhan",
-  "engines": { "vscode": "^1.75.0" },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wk23aau/human-like-paste.git"
+  },
+  "license": "MIT",
+  "icon": "icon.png",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
   "activationEvents": [
     "onCommand:extension.humanLikePasteStart",
     "onCommand:extension.humanLikePasteDo",
@@ -17,7 +25,9 @@
     "onCommand:extension.humanLikePasteSpecialCopy",
     "onCommand:extension.humanLikePasteSpecialPaste"
   ],
-  "categories": [ "Other" ],
+  "categories": [
+    "Other"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
