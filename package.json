@@ -1,0 +1,76 @@
+{
+  "name": "human-like-paste",
+  "displayName": "Human-Like Paste",
+  "description": "Simulates human-like typing of clipboard text with controls for server activation, paste simulation, resume, pause, stop, notifications toggle, speed adjustments, and special one-time copy/paste commands.",
+  "version": "0.0.1",
+  "publisher": "WaseemRazaKhan",
+  "engines": { "vscode": "^1.75.0" },
+  "activationEvents": [
+    "onCommand:extension.humanLikePasteStart",
+    "onCommand:extension.humanLikePasteDo",
+    "onCommand:extension.humanLikePasteResume",
+    "onCommand:extension.humanLikePastePause",
+    "onCommand:extension.humanLikePasteStop",
+    "onCommand:extension.humanLikePasteToggleNotifications",
+    "onCommand:extension.humanLikePasteSpeedUp",
+    "onCommand:extension.humanLikePasteSpeedDown",
+    "onCommand:extension.humanLikePasteSpecialCopy",
+    "onCommand:extension.humanLikePasteSpecialPaste"
+  ],
+  "categories": [ "Other" ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      { "command": "extension.humanLikePasteStart", "title": "Start Human-Like Paste (Activate Server)" },
+      { "command": "extension.humanLikePasteDo", "title": "Do Human-Like Paste (Triggered on Paste)" },
+      { "command": "extension.humanLikePasteResume", "title": "Resume Human-Like Paste" },
+      { "command": "extension.humanLikePastePause", "title": "Pause Human-Like Paste" },
+      { "command": "extension.humanLikePasteStop", "title": "Stop Human-Like Paste" },
+      { "command": "extension.humanLikePasteToggleNotifications", "title": "Toggle Human-Like Paste Notifications" },
+      { "command": "extension.humanLikePasteSpeedUp", "title": "Increase Paste Speed" },
+      { "command": "extension.humanLikePasteSpeedDown", "title": "Decrease Paste Speed" },
+      { "command": "extension.humanLikePasteSpecialCopy", "title": "Special Copy" },
+      { "command": "extension.humanLikePasteSpecialPaste", "title": "Special Paste" }
+    ],
+    "keybindings": [
+      { "command": "extension.humanLikePasteStart", "key": "ctrl+alt+shift+s", "when": "editorTextFocus" },
+      { "command": "extension.humanLikePasteDo", "key": "ctrl+v", "when": "editorTextFocus" },
+      { "command": "extension.humanLikePasteDo", "key": "cmd+v", "when": "editorTextFocus" },
+      { "command": "extension.humanLikePasteResume", "key": "ctrl+alt+shift+r", "when": "editorTextFocus" },
+      { "command": "extension.humanLikePastePause", "key": "ctrl+alt+shift+p", "when": "editorTextFocus" },
+      { "command": "extension.humanLikePasteStop", "key": "ctrl+alt+shift+x", "when": "editorTextFocus" },
+      { "command": "extension.humanLikePasteToggleNotifications", "key": "ctrl+alt+shift+z", "when": "editorTextFocus" },
+      { "command": "extension.humanLikePasteSpeedUp", "key": "ctrl+alt+shift+up", "when": "editorTextFocus" },
+      { "command": "extension.humanLikePasteSpeedDown", "key": "ctrl+alt+shift+down", "when": "editorTextFocus" },
+      { "command": "extension.humanLikePasteSpecialCopy", "key": "ctrl+alt+shift+q", "when": "editorTextFocus" },
+      { "command": "extension.humanLikePasteSpecialPaste", "key": "ctrl+alt+shift+w", "when": "editorTextFocus" }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "Human-Like Paste Configuration",
+      "properties": {
+        "humanLikePaste.speedFactor": {
+          "type": "number",
+          "default": 1.0,
+          "minimum": 0.1,
+          "maximum": 5.0,
+          "description": "Adjust the typing speed factor. Increase for faster typing, decrease for slower."
+        },
+        "humanLikePaste.showNotifications": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable or disable notifications for paste events."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./"
+  },
+  "devDependencies": {
+    "typescript": "^4.0.3",
+    "vscode": "^1.1.37",
+    "@types/node": "^12.11.7"
+  }
+}
