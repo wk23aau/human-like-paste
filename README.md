@@ -12,15 +12,16 @@ Hi, I'm WaseemRazaKhan, and I built **Human-Like Paste** to transform the way yo
     - If a main simulation is paused, pressing Start prompts you to **Resume** (continue from the saved point) or **Restart** (discard the paused context and start fresh).
   - With the server live, pressing **Ctrl+V/Cmd+V** triggers the simulated paste.
     - If a main simulation is paused, normal paste occurs.
-  - **Stop (Ctrl+Alt+Shift+X):** Stops the main simulation and clears its context so new content is pasted normally.
+  - **Stop (Ctrl+Alt+Shift+X):** Stops the main simulation and clears its context.
 
 - **Special One-Time Commands:**  
   - **Special Copy (Ctrl+Alt+Shift+Q):** Saves the current clipboard content into a special instance.
   - **Special Paste (Ctrl+Alt+Shift+W):** Always triggers a simulated paste using the special instance (or current clipboard if none), regardless of server state.
     - This special simulation runs independently and can be paused, resumed, or stopped without affecting the main simulation.
+    - If a special simulation is paused, pressing Special Paste prompts you to Resume or Restart that special simulation.
 
 - **Additional Controls:**  
-  - **Resume (Ctrl+Alt+Shift+R):** Resumes a paused simulation (special simulation takes precedence if active).
+  - **Resume (Ctrl+Alt+Shift+.):** Resumes a paused simulation (special simulation takes precedence if active).
   - **Pause (Ctrl+Alt+Shift+P):** Pauses an active simulation (special simulation takes precedence if active).
   - **Toggle Notifications (Ctrl+Alt+Shift+Z):** Enables or disables on-screen notifications.
   - **Adjust Speed:** Increase with **Ctrl+Alt+Shift+Up** or decrease with **Ctrl+Alt+Shift+Down** (or adjust the **Speed Factor** in Settings, range: 0.1–5.0).
@@ -58,5 +59,4 @@ Your feedback is invaluable. If you have suggestions or encounter issues, please
 This extension is licensed under the MIT License.
 
 ---
-
 Thank you for choosing Human-Like Paste. Install it, activate the server if desired, and let your text come to life!

@@ -181,23 +181,52 @@ export function activate(context: vscode.ExtensionContext) {
     simulationPromise = simulateHumanLikeTyping(editor, clipboardText, 0);
   });
 
-  // Resume command: Special simulation takes precedence if paused.
-  const resumeDisposable = vscode.commands.registerCommand('extension.humanLikePasteResume', async () => {
-    if (specialSimulationData && specialIsPaused) {
-      specialIsPaused = false;  // Reset paused flag.
+  // Resume command: If special simulation is paused, resume it; otherwise resume main simulation.
+// Resume command handler
+const resumeDisposable = vscode.commands.registerCommand('extension.humanLikePasteResume', async () => {
+  // Check for special simulation first.
+  if (specialSimulationData && specialIsPaused) {
+    if (specialSimulationRunning) {
+      // The special simulation loop is already active, just unpause it.
+      specialIsPaused = false;
       notify("Resuming special paste simulation.");
-      specialSimulationPromise = simulateSpecialTyping(specialSimulationData.editor, specialSimulationData.text, specialSimulationData.currentIndex);
-      return;
-    } else if (simulationData && (isPaused || isStopped)) {
-      isPaused = false; // Reset paused flag.
-      notify("Resuming paste simulation.");
-      simulationPromise = simulateHumanLikeTyping(simulationData.editor, simulationData.text, simulationData.currentIndex);
       return;
     } else {
-      notify("No paused simulation to resume.");
+      // If not currently running, restart it from saved index.
+      specialIsPaused = false;
+      notify("Resuming special paste simulation.");
+      specialSimulationPromise = simulateSpecialTyping(
+        specialSimulationData.editor,
+        specialSimulationData.text,
+        specialSimulationData.currentIndex
+      );
       return;
     }
-  });
+  }
+  // Then check the main simulation.
+  else if (simulationData && isPaused) {
+    if (simulationRunning) {
+      // The main simulation loop is active and just paused: unpause it.
+      isPaused = false;
+      notify("Resuming paste simulation.");
+      return;
+    } else {
+      // If it isn't running, restart from saved index.
+      isPaused = false;
+      notify("Resuming paste simulation.");
+      simulationPromise = simulateHumanLikeTyping(
+        simulationData.editor,
+        simulationData.text,
+        simulationData.currentIndex
+      );
+      return;
+    }
+  } else {
+    notify("No paused simulation to resume.");
+    return;
+  }
+});
+
 
   // Pause command: Pauses active simulation (special takes precedence).
   const pauseDisposable = vscode.commands.registerCommand('extension.humanLikePastePause', () => {
@@ -268,12 +297,11 @@ export function activate(context: vscode.ExtensionContext) {
     }
   });
 
-  // Special Paste: Always triggers a simulated paste using the special instance (or current clipboard if none),
-  // regardless of server state.
+  // Special Paste: Always triggers a simulated paste using the special instance (or current clipboard if none).
+  // This simulation runs independently.
   const specialPasteDisposable = vscode.commands.registerCommand('extension.humanLikePasteSpecialPaste', async () => {
     const editor = vscode.window.activeTextEditor;
     if (!editor) return;
-    // If a special simulation is paused, prompt for Resume or Restart.
     if (specialSimulationData && specialIsPaused) {
       const selection = await vscode.window.showInformationMessage(
         "A special paste simulation is paused. Would you like to Resume or Restart?",
@@ -291,7 +319,6 @@ export function activate(context: vscode.ExtensionContext) {
         return;
       }
     }
-    // Always trigger simulation for special paste.
     let textToPaste = specialInstance;
     if (!textToPaste) {
       textToPaste = await vscode.env.clipboard.readText();

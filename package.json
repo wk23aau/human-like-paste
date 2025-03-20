@@ -36,7 +36,7 @@
       { "command": "extension.humanLikePasteStart", "key": "ctrl+alt+shift+s", "when": "editorTextFocus" },
       { "command": "extension.humanLikePasteDo", "key": "ctrl+v", "when": "editorTextFocus" },
       { "command": "extension.humanLikePasteDo", "key": "cmd+v", "when": "editorTextFocus" },
-      { "command": "extension.humanLikePasteResume", "key": "ctrl+alt+shift+r", "when": "editorTextFocus" },
+      { "command": "extension.humanLikePasteResume", "key": "ctrl+alt+shift+.", "when": "editorTextFocus" },
       { "command": "extension.humanLikePastePause", "key": "ctrl+alt+shift+p", "when": "editorTextFocus" },
       { "command": "extension.humanLikePasteStop", "key": "ctrl+alt+shift+x", "when": "editorTextFocus" },
       { "command": "extension.humanLikePasteToggleNotifications", "key": "ctrl+alt+shift+z", "when": "editorTextFocus" },
